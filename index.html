@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פסגת המדעים | וינגייט</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0d1117;
+  --surface:   #161b22;
+  --card:      #1c2330;
+  --border:    #2d3748;
+  --teal:      #00c8a0;
+  --teal-dim:  rgba(0,200,160,0.12);
+  --teal-glow: rgba(0,200,160,0.35);
+  --orange:    #ff6b35;
+  --orange-dim:rgba(255,107,53,0.12);
+  --gold:      #f5c518;
+  --gold-dim:  rgba(245,197,24,0.12);
+  --silver:    #a8b4c0;
+  --bronze:    #cd7f32;
+  --text:      #e6edf3;
+  --muted:     #7d8590;
+  --danger:    #f85149;
+  --success:   #3fb950;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── SCREENS ─── */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ─── HOME ─── */
+#home {
+  background: radial-gradient(ellipse at 20% 0%, rgba(0,200,160,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 100%, rgba(255,107,53,0.06) 0%, transparent 60%),
+              var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.logo-area {
+  margin-bottom: 32px;
+}
+
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal-dim);
+  border: 1px solid var(--teal);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  color: var(--teal);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.atom-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.atom-icon svg { width: 100%; height: 100%; }
+
+h1.main-title {
+  font-size: clamp(36px, 8vw, 64px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+}
+
+.title-science { color: var(--teal); }
+.title-peak { color: var(--text); }
+
+.subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.mode-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-card:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+  transform: translateY(-2px);
+}
+
+.mode-card.new-badge::after {
+  content: 'חדש היום';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--teal);
+  color: #000;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+}
+
+.mode-card.orange-mode:hover {
+  border-color: var(--orange);
+  background: var(--orange-dim);
+}
+
+.mode-card.gold-mode:hover {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.mode-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+.mode-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.mode-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+.leaderboard-btn {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text);
+  font-family: 'Heebo', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.leaderboard-btn:hover {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+/* ─── QUIZ SCREEN ─── */
+#quiz {
+  background: var(--bg);
+}
+
+.quiz-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quiz-back {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px;
+  transition: color 0.2s;
+}
+.quiz-back:hover { color: var(--text); }
+
+.quiz-mode-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.quiz-progress-text {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.progress-bar-wrap {
+  height: 3px;
+  background: var(--border);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), #00e5b8);
+  transition: width 0.4s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.quiz-body {
+  flex: 1;
+  padding: 28px 20px;
+  max-width: 620px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.question-unit {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-size: clamp(17px, 4vw, 22px);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 28px;
+  color: var(--text);
+}
+
+.answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.answer-btn {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  text-align: right;
+  cursor: pointer;
+  font-family: 'Heebo', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.answer-btn:hover:not(:disabled) {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+
+.answer-btn:disabled { cursor: default; }
+.answer-btn.correct { border-color: var(--success); background: rgba(63,185,80,0.12); }
+.answer-btn.wrong   { border-color: var(--danger);  background: rgba(248,81,73,0.10); }
+
+.answer-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.answer-btn.correct .answer-letter { background: var(--success); color: #000; }
+.answer-btn.wrong   .answer-letter { background: var(--danger);  color: #fff; }
+
+.explanation-box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 400;
+  display: none;
+}
+.explanation-box.show { display: block; }
+.explanation-box.correct-exp { background: rgba(63,185,80,0.08); border: 1px solid var(--success); color: #7ee787; }
+.explanation-box.wrong-exp   { background: rgba(248,81,73,0.08);  border: 1px solid var(--danger);  color: #ffa198; }
+
+.next-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 16px;
+  background: var(--teal);
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  display: none;
+  transition: all 0.2s;
+}
+.next-btn.show { display: block; }
+.next-btn:hover { background: #00e5b8; }
+
+.timer-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.timer-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: conic-gradient(var(--teal) 100%, var(--border) 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text);
+  position: relative;
+  flex-shrink: 0;
+}
+.timer-circle::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--card);
+}
+.timer-circle::after {
+  content: attr(data-t);
+  position: relative;
+  z-index: 1;
+}
+.timer-circle.warn  { background: conic-gradient(var(--orange) var(--p,100%), var(--border) 0%); }
+.timer-circle.danger{ background: conic-gradient(var(--danger) var(--p,100%), var(--border) 0%); }
+
+/* ─── RESULTS ─── */
+#results {
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,200,160,0.07) 0%, transparent 60%), var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.result-icon { font-size: 72px; margin-bottom: 16px; }
+.result-title { font-size: 32px; font-weight: 900; margin-bottom: 8px; }
+.result-sub { font-size: 15px; color: var(--muted); margin-bottom: 32px; }
+
+.score-ring {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(var(--teal) var(--pct, 0%), var(--border) 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  position: relative;
+}
+
+.score-ring::before {
+  content: '';
+  position: absolute;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.score-inner {
+  position: relative;
+  z-index: 1;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--teal);
+}
+
+.points-earned {
+  background: var(--teal-dim);
+  border: 1px solid var(--teal);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--teal);
+  margin-bottom: 24px;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.btn-primary {
+  padding: 16px;
+  background: var(--teal);
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: #00e5b8; }
+
+.btn-ghost {
+  padding: 14px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: var(--muted); }
+
+/* ─── LEADERBOARD ─── */
+#leaderboard {
+  background: var(--bg);
+  padding: 0;
+}
+
+.lb-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lb-title {
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.podium-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px 20px 24px;
+  background: linear-gradient(180deg, rgba(0,200,160,0.05) 0%, transparent 100%);
+}
+
+.podium-item {
+  text-align: center;
+  flex: 1;
+  max-width: 110px;
+}
+
+.podium-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 8px;
+  border: 3px solid var(--border);
+}
+
+.podium-item.p1 .podium-avatar { border-color: var(--gold); width: 64px; height: 64px; font-size: 26px; }
+.podium-item.p2 .podium-avatar { border-color: var(--silver); }
+.podium-item.p3 .podium-avatar { border-color: var(--bronze); }
+
+.podium-name {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.podium-pts { font-size: 12px; color: var(--muted); }
+
+.podium-block {
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 900;
+  margin-top: 8px;
+}
+
+.p1 .podium-block { background: var(--gold); color: #000; height: 60px; }
+.p2 .podium-block { background: var(--silver); color: #000; height: 44px; }
+.p3 .podium-block { background: var(--bronze); color: #fff; height: 32px; }
+
+.lb-list {
+  padding: 0 16px 100px;
+}
+
+.lb-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  transition: all 0.2s;
+}
+
+.lb-entry.me {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+
+.lb-rank {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.lb-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.lb-info { flex: 1; min-width: 0; }
+.lb-name { font-size: 14px; font-weight: 700; }
+.lb-streak { font-size: 11px; color: var(--orange); }
+
+.lb-score {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--teal);
+}
+
+/* ─── NAME ENTRY ─── */
+#name-entry {
+  background: var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.name-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.name-card h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.name-card p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+.name-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 16px;
+}
+
+.name-input:focus { border-color: var(--teal); }
+
+/* ─── CHALLENGE / DUEL ─── */
+#challenge {
+  background: var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.challenge-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.challenge-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.challenge-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+
+.duel-code {
+  background: var(--bg);
+  border: 2px dashed var(--orange);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.duel-code-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.duel-code-value {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--orange);
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+  z-index: 999;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ─── NAV (bottom) ─── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px 0 12px;
+  z-index: 100;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: 10px;
+  transition: all 0.2s;
+  color: var(--muted);
+  font-family: 'Heebo', sans-serif;
+}
+
+.nav-btn.active { color: var(--teal); }
+.nav-btn:hover { color: var(--text); }
+.nav-btn .nav-icon { font-size: 20px; }
+.nav-btn .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; }
+
+/* ─── PRACTICE MODE TOPIC SELECTOR ─── */
+#topic-select {
+  background: var(--bg);
+  padding: 0 0 80px;
+}
+
+.topic-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topics-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topic-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topic-item:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+
+.topic-emoji { font-size: 28px; flex-shrink: 0; }
+.topic-info { flex: 1; }
+.topic-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.topic-unit { font-size: 12px; color: var(--muted); }
+.topic-arrow { color: var(--muted); font-size: 18px; }
+
+/* ─── WEEKLY TOURNAMENT ─── */
+#tournament {
+  background: var(--bg);
+  padding: 0 0 80px;
+}
+
+.tournament-header {
+  background: linear-gradient(135deg, rgba(245,197,24,0.15), rgba(255,107,53,0.1));
+  border-bottom: 1px solid var(--gold);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.tournament-crown { font-size: 48px; margin-bottom: 8px; }
+.tournament-title { font-size: 22px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+.tournament-sub { font-size: 13px; color: var(--muted); }
+
+.tournament-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 16px;
+}
+
+.t-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.t-stat-val { font-size: 22px; font-weight: 900; color: var(--gold); }
+.t-stat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.tournament-start-btn {
+  margin: 0 16px 16px;
+  width: calc(100% - 32px);
+  padding: 18px;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tournament-start-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════ NAME ENTRY ════════════════ -->
+<div id="name-entry" class="screen active">
+  <div class="name-card">
+    <div style="font-size:52px;margin-bottom:12px">⚗️</div>
+    <h2>ברוכים הבאים</h2>
+    <p>מבוא למדעים • וינגייט<br>הכנס/י את שמך כדי להתחיל</p>
+    <input class="name-input" id="player-name-input" type="text" placeholder="השם שלך..." maxlength="20" />
+    <button class="btn-primary" style="width:100%" onclick="saveName()">🚀 בואו נתחיל</button>
+  </div>
+</div>
+
+<!-- ════════════════ HOME ════════════════ -->
+<div id="home" class="screen">
+  <div class="logo-area">
+    <div class="logo-badge">⚗️ מבוא למדעים • וינגייט</div>
+    <h1 class="main-title">
+      <span class="title-science">פסגת</span><br>
+      <span class="title-peak">המדעים</span>
+    </h1>
+    <p class="subtitle" id="home-greeting">שלום! מוכן/ה לאתגר?</p>
+  </div>
+
+  <div class="mode-grid">
+    <div class="mode-card new-badge" onclick="startDaily()">
+      <span class="mode-icon">⚡</span>
+      <div class="mode-name">אתגר יומי</div>
+      <div class="mode-desc">5 שאלות • כולם פותרים את אותה חידה • דירוג חי</div>
+    </div>
+    <div class="mode-card gold-mode" onclick="showTournament()">
+      <span class="mode-icon">🏆</span>
+      <div class="mode-name">טורניר שבועי</div>
+      <div class="mode-desc">15 שאלות מעורבות • מדליות לשלושה הראשונים</div>
+    </div>
+    <div class="mode-card orange-mode" onclick="showChallenge()">
+      <span class="mode-icon">⚔️</span>
+      <div class="mode-name">אתגר חבר</div>
+      <div class="mode-desc">תזמינו מישהו ספציפי • ראש בראש</div>
+    </div>
+    <div class="mode-card" onclick="showTopics()">
+      <span class="mode-icon">🧠</span>
+      <div class="mode-name">תרגול חופשי</div>
+      <div class="mode-desc">לפי נושא • בלי לחץ זמן • לא משפיע על הדירוג</div>
+    </div>
+    <div class="mode-card orange-mode" onclick="startBlitz()">
+      <span class="mode-icon">⚡</span>
+      <div class="mode-name">מצב מהירות</div>
+      <div class="mode-desc">כמה שיותר ב-60 שניות • נקודות לכל תשובה נכונה</div>
+    </div>
+    <div class="mode-card" onclick="startTrueFalse()">
+      <span class="mode-icon">🎯</span>
+      <div class="mode-name">נכון / לא נכון</div>
+      <div class="mode-desc">החלק ימינה ✓ או שמאלה ✗ • מהיר ומכיל</div>
+    </div>
+    <div class="mode-card gold-mode" onclick="startFillBlank()">
+      <span class="mode-icon">🧩</span>
+      <div class="mode-name">השלם את המשפט</div>
+      <div class="mode-desc">בחר את המילה הנכונה להשלמת המשפט</div>
+    </div>
+    <div class="mode-card" onclick="startConnections()">
+      <span class="mode-icon">🔗</span>
+      <div class="mode-name">חיבור מושגים</div>
+      <div class="mode-desc">מצא 4 קבוצות של 4 • כמו NYT Connections</div>
+    </div>
+  </div>
+
+  <button class="leaderboard-btn" onclick="showLeaderboard()">
+    🥇 לוח המובילים <span id="home-rank-badge" style="background:var(--gold-dim);color:var(--gold);padding:2px 10px;border-radius:100px;font-size:12px;"></span>
+  </button>
+
+  <div class="bottom-nav" style="position:relative;margin-top:24px;border-top:none;background:none;border-radius:16px;background:var(--surface);border:1px solid var(--border);max-width:480px;width:100%;align-self:center">
+    <button class="nav-btn active" onclick="goHome()"><span class="nav-icon">🏠</span><span class="nav-label">בית</span></button>
+    <button class="nav-btn" onclick="showLeaderboard()"><span class="nav-icon">📊</span><span class="nav-label">דירוג</span></button>
+    <button class="nav-btn" onclick="showTournament()"><span class="nav-icon">🏆</span><span class="nav-label">התקדמות</span></button>
+    <button class="nav-btn" onclick="showProfile()"><span class="nav-icon">👤</span><span class="nav-label">פרופיל</span></button>
+  </div>
+</div>
+
+<!-- ════════════════ TOPIC SELECT ════════════════ -->
+<div id="topic-select" class="screen">
+  <div class="topic-header">
+    <button class="quiz-back" onclick="goHome()">←</button>
+    <span style="font-size:15px;font-weight:700">תרגול חופשי</span>
+    <span style="width:28px"></span>
+  </div>
+  <div class="topics-list" id="topics-list"></div>
+</div>
+
+<!-- ════════════════ TOURNAMENT ════════════════ -->
+<div id="tournament" class="screen">
+  <div class="tournament-header">
+    <div class="tournament-crown">🏆</div>
+    <div class="tournament-title">טורניר שבועי</div>
+    <div class="tournament-sub">15 שאלות • כל נושאי מבוא למדעים • שלושה הראשונים זוכים במדליות</div>
+  </div>
+  <div class="tournament-stats">
+    <div class="t-stat"><div class="t-stat-val" id="t-participants">–</div><div class="t-stat-lbl">משתתפים</div></div>
+    <div class="t-stat"><div class="t-stat-val" id="t-top-score">–</div><div class="t-stat-lbl">הניקוד המוביל</div></div>
+    <div class="t-stat"><div class="t-stat-val" id="t-days-left">6</div><div class="t-stat-lbl">ימים לסיום</div></div>
+  </div>
+  <button class="tournament-start-btn" onclick="startTournament()">🚀 צא לטורניר</button>
+  <div style="padding:0 16px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--gold)">🥇 מובילי הטורניר</div>
+      <div id="t-mini-lb"></div>
+    </div>
+  </div>
+  <div style="padding:16px;margin-top:8px">
+    <button class="btn-ghost" style="width:100%" onclick="goHome()">← חזרה</button>
+  </div>
+</div>
+
+<!-- ════════════════ CHALLENGE ════════════════ -->
+<div id="challenge" class="screen">
+  <div class="challenge-card">
+    <div style="font-size:48px;margin-bottom:12px">⚔️</div>
+    <div class="challenge-title">אתגר חבר</div>
+    <div class="challenge-sub">פתחו אתגר או הצטרפו לאחד קיים</div>
+
+    <div id="duel-create-tab">
+      <div class="duel-code">
+        <div class="duel-code-label">קוד האתגר שלך</div>
+        <div class="duel-code-value" id="duel-code">––––</div>
+      </div>
+      <div style="margin-bottom:14px;font-size:13px;color:var(--muted)">שתפו את הקוד עם חבר/ה — שניכם תקבלו את אותן שאלות</div>
+      <button class="btn-primary" style="width:100%;margin-bottom:12px" onclick="startDuelAsHost()">⚡ פתח אתגר</button>
+      <div style="text-align:center;color:var(--muted);font-size:13px;margin-bottom:12px">— או הצטרף לאתגר קיים —</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <input id="join-code-input" class="name-input" style="margin:0;flex:1;text-align:center;letter-spacing:4px;font-size:20px;font-weight:800;text-transform:uppercase" placeholder="קוד" maxlength="4" />
+        <button class="btn-primary" style="width:auto;padding:0 20px" onclick="joinDuel()">הצטרף</button>
+      </div>
+      <button class="btn-ghost" style="width:100%" onclick="goHome()">← חזרה</button>
+    </div>
+
+    <div id="duel-waiting" style="display:none;text-align:center;padding:8px 0">
+      <div style="font-size:44px;margin-bottom:10px">⏳</div>
+      <div style="font-size:16px;font-weight:800;margin-bottom:6px">ממתין לחבר...</div>
+      <div style="margin-bottom:12px">קוד: <span id="waiting-code" style="color:var(--orange);font-weight:900;font-size:22px;letter-spacing:4px"></span></div>
+      <button onclick="shareViaWhatsApp()" style="width:100%;padding:14px;background:#25D366;color:#fff;border:none;border-radius:14px;font-family:Heebo,sans-serif;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        שתף בוואטסאפ
+      </button>
+      <div id="duel-status" style="font-size:13px;color:var(--teal);min-height:20px"></div>
+    </div>
+
+    <div id="duel-result-panel" style="display:none">
+      <div style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--gold)">⚔️ תוצאות הדו-קרב</div>
+      <div id="duel-result-content"></div>
+      <button class="btn-primary" style="width:100%;margin-top:14px" onclick="goHome()">← חזרה</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ QUIZ ════════════════ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <button class="quiz-back" onclick="quitQuiz()">←</button>
+    <span class="quiz-mode-label" id="quiz-mode-label">אתגר יומי</span>
+    <span class="quiz-progress-text" id="quiz-progress">1 / 5</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+  </div>
+  <div class="quiz-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;padding:0 4px">
+      <div class="timer-circle" id="timer-display">20</div>
+      <div style="text-align:center">
+        <div style="font-size:10px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">ניקוד</div>
+        <div style="font-size:20px;font-weight:900;color:var(--gold)" id="round-score-display">0</div>
+      </div>
+    </div>
+    <div class="question-unit" id="q-unit"></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="answers-list" id="answers-list"></div>
+    <div class="explanation-box" id="explanation-box"></div>
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">המשך ←</button>
+  </div>
+</div>
+
+<!-- ════════════════ RESULTS ════════════════ -->
+<div id="results" class="screen">
+  <div class="result-icon" id="result-icon">🎯</div>
+  <div class="result-title" id="result-title">כל הכבוד!</div>
+  <div class="result-sub" id="result-sub">השלמת את האתגר</div>
+  <div class="score-ring" id="score-ring" style="--pct:0%">
+    <div class="score-inner" id="score-fraction">0/5</div>
+  </div>
+  <div class="points-earned" id="points-earned">+0 נקודות</div>
+  <div id="result-rank" style="font-size:13px;color:var(--teal);font-weight:700;margin-bottom:12px"></div>
+  <div id="score-breakdown" style="width:100%;max-width:360px;margin-bottom:16px"></div>
+  <div class="result-actions">
+    <button class="btn-primary" onclick="shareResult()">📤 שיתוף תוצאה</button>
+    <button class="btn-ghost" onclick="goHome()">← חזרה לתפריט</button>
+  </div>
+</div>
+
+<!-- ════════════════ LEADERBOARD ════════════════ -->
+<div id="leaderboard" class="screen">
+  <div class="lb-header">
+    <span class="lb-title">🏅 לוח המובילים</span>
+    <button class="quiz-back" onclick="goHome()">←</button>
+  </div>
+  <div class="podium-row" id="podium-row"></div>
+  <div class="lb-list" id="lb-list"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TOPICS = [
+  { id:'body', name:'הגוף כמערכת מתואמת', unit:'יחידה 1.1', emoji:'🫀', questions:[
+    { q:'מה משמעות המושג הומאוסטזיס?',
+      a:['שמירה על איזון פנימי קבוע בגוף','תהליך שחרור אנרגיה בשריר בזמן מאמץ','עלייה מבוקרת בטמפרטורת הגוף לצורך שריפת קלוריות','סנכרון בין מערכת העצבים למערכת השרירים בזמן אימון'],
+      correct:0, exp:'הומאוסטזיס = שמירה על תנאים יציבים בגוף כמו טמפרטורה ורמת סוכר, גם כשהסביבה משתנה.' },
+    { q:'ספורטאי מתאמן 6 ימים בשבוע ומרגיש ירידה בביצועים. מה הסיבה הסבירה ביותר?',
+      a:['הוא לא צורך מספיק חלבון לאחר אימון','אימון-יתר — הגוף לא מספיק להתאושש בין אימונים','הוא מתאמן בשעות הלא נכונות לשעון הביולוגי','הוא שותה כמות מים לא מספקת במהלך היום'],
+      correct:1, exp:'שיפור מגיע דווקא בזמן ההתאוששות. ללא מנוחה הגוף נשאר בעומס ולא מגיע לסופר-קומפנסציה.' },
+    { q:'איזו מערכת גוף מובילה את תהליך וויסות הטמפרטורה?',
+      a:['מערכת השריר — שריפת האנרגיה מייצרת חום מבוקר','מערכת העצבים ומערכת הלב-דם בשיתוף פעולה','מערכת הנשימה — אוויר נשוף מוריד את חום הגוף','מערכת ההורמונים — האדרנלין מווסת טמפרטורה'],
+      correct:1, exp:'מערכת העצבים מזהה שינויים, הדם מפיץ חום, ובלוטות הזיעה מקררות — שיתוף פעולה של מערכות.' },
+    { q:'מהו "עומס" בהקשר פיזיולוגי?',
+      a:['כמות המשקל שמרים ספורטאי באימון כוח בודד','כל גורם — פיזי או נפשי — הדורש מהגוף להגיב ולהסתגל','מדד לצריכת החמצן המרבית של ספורטאי בזמן מאמץ','העומס הקלורי שהגוף שורף בשעה של אימון אירובי'],
+      correct:1, exp:'עומס = כל גורם שמחייב את הגוף להגיב: אימון, חום, לחץ נפשי. כולם מפעילים מנגנוני הסתגלות.' },
+    { q:'למה מנוחה היא חלק בלתי נפרד מאימון?',
+      a:['כדי לאפשר לשרירים לצבור מסה ללא פירוק חלבון','כי בזמן מנוחה מתרחש תיקון רקמות והסתגלות — שם מגיע השיפור','כדי לאפשר למערכת העיכול לעבד חלבוני שריר','כי ללא מנוחה הגוף עובר למצב קטבולי קבוע'],
+      correct:1, exp:'שיפור קורה בהתאוששות, לא בזמן האימון עצמו. האימון יוצר גירוי, המנוחה מאפשרת הסתגלות.' }
+  ]},
+  { id:'immune', name:'מיקרואורגניזמים וחיסונים', unit:'יחידה 1.2', emoji:'🦠', questions:[
+    { q:'מה ההבדל הבסיסי בין חיידק לנגיף?',
+      a:['חיידקים מסוכנים יותר — נגיפים נעלמים מעצמם','חיידקים הם תאים שמתרבים עצמאית; נגיפים חדרים לתא ומשתמשים במנגנון שלו','נגיפים ניתנים לטיפול בתרופות; חיידקים עמידים לרוב הטיפולים','חיידקים חיים רק בדם; נגיפים חיים בכל רקמה'],
+      correct:1, exp:'חיידקים הם אורגניזמים תאיים עצמאיים. נגיפים הם חבילות DNA/RNA שחייבים לחדור לתא כדי להתרבות.' },
+    { q:'כיצד חיסון מכין את מערכת החיסון?',
+      a:['הוא מחסל את כל הנגיפים הקיימים בגוף לפני חשיפה','הוא מציג לגוף גרסה מוחלשת/מומתת של הפתוגן — הגוף בונה נוגדנים ותאי זיכרון','הוא מגביר ייצור תאים לבנים בכמות גדולה לזמן קצר','הוא מחזק את מחסום הריריות כנגד חדירת מיקרואורגניזמים'],
+      correct:1, exp:'חיסון מדמה זיהום בצורה בטוחה. הגוף מייצר זיכרון חיסוני — בחשיפה עתידית הוא מגיב מהר ויעיל.' },
+    { q:'למה ספורטאי בתקופת אימון אינטנסיבי חשוף יותר להתקררות?',
+      a:['הוא נושם מהר יותר ומכניס יותר חיידקים לריאות','אימון קשה מנתב משאבים לשריר ומוריד זמנית את יעילות מערכת החיסון','הזעה מרובה שוטפת את הנוגדנים מהעור ומהריריות','ירידה בסוכר דם לאחר אימון מחלישה את תאי הדם הלבנים'],
+      correct:1, exp:'לאחר אימון עצים, הגוף מנתב משאבים לשיקום שריר. מערכת החיסון מקבלת עדיפות נמוכה — חלון הסיכון לזיהום.' },
+    { q:'מהו זיכרון חיסוני ומה תפקידו?',
+      a:['תאי דם לבנים שמסתובבים בדם ומחסלים כל פתוגן בזמן אמת','תאי T ו-B שנשארים בגוף לאחר זיהום ומאפשרים תגובה מהירה בחשיפה חוזרת','חלבוני זיכרון שנשמרים בתאי הכבד ומפורשים בעת הצורך','מידע גנטי שמועבר מדור לדור על פתוגנים שפגשו אבותינו'],
+      correct:1, exp:'תאי זיכרון שורדים שנים. בפגישה חוזרת עם הפתוגן — תגובה מהירה בשעות במקום ימים.' },
+    { q:'מדוע אנטיביוטיקה אינה יעילה כנגד נגיפים?',
+      a:['נגיפים מתרבים מהר מדי בשביל שהאנטיביוטיקה תספיק לפעול','אנטיביוטיקה פוגעת במבנים ייחודיים לחיידקים — נגיפים חסרי מבנים אלו וחיים בתוך תאינו','הנגיפים פיתחו עמידות לאנטיביוטיקה לאורך שנות האבולוציה','אנטיביוטיקה פועלת רק על מערכת הנשימה ולא על מערכת הדם שם חיים הנגיפים'],
+      correct:1, exp:'אנטיביוטיקה פוגעת בדופן התא החיידקי, ריבוזומים חיידקיים ועוד. לנגיפים אין את המבנים האלה.' }
+  ]},
+  { id:'reaction', name:'זמן תגובה וקבלת החלטות', unit:'יחידה 2.1', emoji:'⚡', questions:[
+    { q:'מהו זמן תגובה?',
+      a:['הזמן שלוקח לשריר להגיע לכוח מרבי מרגע כיווץ','הזמן שעובר בין הופעת גירוי לבין תגובה גופנית','מהירות העברת האות העצבי לאורך האקסון','הזמן שנדרש למוח לזהות סיטואציה מוכרת ולחזות תוצאה'],
+      correct:1, exp:'זמן תגובה = מגירוי ועד לתגובה. כולל קליטה, העברה עצבית, עיבוד, החלטה ותגובת שריר.' },
+    { q:'מה מסביר את העובדה שספורטאי מנוסה מגיב מהר יותר מעמית שאינו מנוסה?',
+      a:['לספורטאי מנוסה יש עצבים מהירים יותר מבחינה ביולוגית','תרגול יוצר מסלולים עצביים יעילים ומאפשר זיהוי מהיר של דפוסים','ספורטאים מנוסים מפרישים יותר אדרנלין שמאיץ את זמן התגובה','הניסיון מאפשר לשריר לכווץ מהר יותר ללא שלב עיבוד במוח'],
+      correct:1, exp:'תרגול חוזר בונה מסלולים עצביים מיוחלים ומשפר זיהוי דפוסים — מה שמקצר את שלב העיבוד.' },
+    { q:'מה קורה לזמן התגובה בעת לחץ גבוה מדי?',
+      a:['זמן התגובה תמיד קצר יותר כי אדרנלין מאיץ את מערכת העצבים','לחץ גבוה מדי עלול לפגוע בזמן התגובה עקב עומס קוגניטיבי ו"קפיאה"','לחץ גבוה מאלץ את המוח לוותר על עיבוד מורכב ולהגיב אינסטינקטיבית','זמן התגובה נשאר זהה כי מערכת העצבים פועלת במהירות קבועה'],
+      correct:1, exp:'עקומת ירקס-דודסון: לחץ מתון = שיא. לחץ חזק מדי = קפיאה, בלבול, טעויות.' },
+    { q:'ספורטאי מסתכל בטלפון בין נסיונות. כיצד זה משפיע על ביצועיו?',
+      a:['לא משפיע — המוח מסוגל לעבד מידע מרובה במקביל','מפחית ביצועים — הטלפון מנתב קשב ומאט את שלב עיבוד המידע הספורטיבי','משפר ביצועים — הסחת דעת קצרה מאפשרת למוח לנוח ולהתאפס','משפיע רק אם הספורטאי חסר ניסיון — מנוסים יכולים להתעלם'],
+      correct:1, exp:'קשב הוא משאב מוגבל. הסחת דעת מנתבת קשב מהמשימה הספורטיבית ומאטה עיבוד מידע.' },
+    { q:'מה ההסבר הפיזיולוגי לתופעת "paralysis by analysis" בתחרות?',
+      a:['חמצת בשריר גורמת לאיטיות בפיקוד המוח על השרירים','קורטיזול גבוה פוגע בקליפת המוח הקדמית האחראית על קבלת החלטות','עייפות גופנית מפחיתה ייצור נוירוטרנסמיטורים הכרחיים','עלייה ברמת האדרנלין חוסמת את הדופמין שאחראי על בחירת מהלך'],
+      correct:1, exp:'לחץ קיצוני = קורטיזול גבוה = פגיעה בקליפת המוח הקדמית = קושי בקבלת החלטות מהירה.' }
+  ]},
+  { id:'energy', name:'אנרגיה: עייפות, סוכר וקפאין', unit:'יחידה 2.2', emoji:'🔋', questions:[
+    { q:'מה הוא ATP ומדוע הוא קריטי לספורטאים?',
+      a:['חלבון מבני הנמצא בסיבי השריר ואחראי על גמישות השריר','מולקולת האנרגיה של התא — כיווץ שריר תלוי בפירוק ATP לשחרור אנרגיה','אנזים שמזרז שריפת שומן בזמן מאמץ ממושך','הורמון אנבולי שמגרה סינתזת חלבון ובניית מסת שריר'],
+      correct:1, exp:'ATP = מטבע האנרגיה התאי. כל כיווץ שריר, פעימת לב ותהליך ביולוגי תלוי בפירוקו.' },
+    { q:'מה גורם לתחושת עייפות וחוסר ריכוז שעה לאחר שתיית משקה אנרגיה?',
+      a:['הקפאין במשקה מתחיל להשפיע רק לאחר שעה ויוצר תחושת יתר-עוררות','פיק חד ברמת גלוקוז גורם להפרשת אינסולין מוגזמת שמורידה הסוכר מתחת לרגיל','החומרים המשמרים במשקה גורמים לעיכוב עיכול וגנוב אנרגיה מהמוח','הסוכר הגבוה מעכב ספיגת ויטמיני B הדרושים לייצור אנרגיה'],
+      correct:1, exp:'פיק גלוקוז → אינסולין גבוה → ירידת סוכר מתחת לרמה רגילה → עייפות וקשיי ריכוז.' },
+    { q:'כיצד קפאין גורם לתחושת עירנות?',
+      a:['הוא מגביר ישירות ייצור ATP בתאי המוח ומעניק אנרגיה אמיתית','הוא חוסם קולטני אדנוזין — כך מונע מהמולקולה שגורמת עייפות להיקשר','הוא מגביר שחרור דופמין וסרוטונין שיוצרים תחושת אושר ועוררות','הוא מפעיל בלוטת יותרת הכליה לשחרור אדרנלין ונוראדרנלין'],
+      correct:1, exp:'קפאין חוסם קולטני אדנוזין — לא מייצר אנרגיה, רק מסווה עייפות. כשמתפוגג — האדנוזין פוגע בבת אחת.' },
+    { q:'מה מבחינה פיזיולוגית עדיף לאכול כ-90 דקות לפני אימון?',
+      a:['חלבון ממוצה — כדי להתחיל פירוק אמינו-חומצות לפני האימון','פחמימות מורכבות — לשחרור גלוקוז הדרגתי ויציב לאורך האימון','שומן בלתי רווי — שמשמש כמקור אנרגיה יעיל יותר מסוכר בסבולת','ממתק עתיר סוכר — לטעינת גליקוגן מרבית בשריר לפני המאמץ'],
+      correct:1, exp:'פחמימות מורכבות = שחרור גלוקוז הדרגתי = אנרגיה יציבה לאורך כל האימון. ממתק = פיק ונפילה.' },
+    { q:'מדוע ספורטאים מאומנים יכולים לשמור על מאמץ ממושך יותר מאנשים לא מאומנים?',
+      a:['הם מחזיקים יותר גלוקוז בדם עקב ייצור מוגבר של אינסולין','אימון מגדיל מספר מיטוכונדריות בשריר — יותר ATP לאורך זמן ויעילות גבוהה יותר','שריר מאומן מפרק פחות ATP לכל כיווץ — חוסך אנרגיה ומאריך סיבולת','הם מפרישים פחות חומצת חלב — מה שמונע עייפות שרירית מוקדמת'],
+      correct:1, exp:'אימון סבולת מגדיל את מספר ויעילות המיטוכונדריות. יותר מיטוכונדריות = יותר ATP = סיבולת גבוהה יותר.' }
+  ]},
+  { id:'injuries', name:'מדע של פציעות והגנה', unit:'יחידה 2.3', emoji:'🩹', questions:[
+    { q:'מה קורה ברמה המיקרוסקופית בעת קרע שריר?',
+      a:['הרצועות המחברות שריר לעצם נקרעות ומשתחרר נוזל סינוביאלי','סיבי מיוזין ואקטין בשריר נקרעים, כלי דם קטנים נפגעים ומתחיל תהליך דלקת','קרום תא השריר נשבר ומאפשר כניסת סידן בלתי מבוקרת לתא','הרשת של רקמת חיבור סביב השריר מתקשחת ומונעת כיווץ נוסף'],
+      correct:1, exp:'קרע שריר = קרע בסיבים (מיוזין/אקטין) + פגיעה בכלי דם + דלקת + גיוס תאי גזע לתיקון.' },
+    { q:'מדוע חימום דינמי (ולא סטטי) עדיף לפני תחרות?',
+      a:['חימום סטטי מפחית גמישות לטווח הקצר — חימום דינמי שומר עליה ומגביר זרימת דם','חימום דינמי שורף יותר קלוריות ומכין את מאגרי הגליקוגן לתחרות','חימום סטטי אינו מספיק לחימום תאי השריר — רק תנועה מייצרת חום פנימי','חימום דינמי מפחית חומצת חלב שמצטברת בשריר במנוחה'],
+      correct:0, exp:'חימום דינמי = תנועה + זרימת דם + אלסטיות + גיוס עצבי-שרירי. חימום סטטי לפני תחרות עלול להחליש כוח זמנית.' },
+    { q:'מה מתרחש ברמה התאית בזמן זעזוע מוח?',
+      a:['תאי עצב מתים בכמות גדולה כתוצאה מחוסר חמצן','אקסונים נמתחים עקב כוח מכני וחלה הפרעה בתקשורת עצבית ובאיזון יוני התא','דימום בין תאי המוח גורם לנפיחות ולחץ בתוך הגולגולת','נוירוטרנסמיטורים מוצפים בסינפסות וגורמים לעירור מוחי מוגזם'],
+      correct:1, exp:'זעזוע מוח: אקסונים נמתחים, אשלגן יוצא לחוץ לתא, נתרן וסידן נכנסים — שיבוש בפוטנציאל הפעולה.' },
+    { q:'ספורטאי קיבל מכה בראש, מרגיש "בסדר" ורוצה לחזור למשחק. מה הסיכון?',
+      a:['אין סיכון — אם הוא מרגיש בסדר, אין זעזוע מוח','חזרה מוקדמת עלולה לגרום לתסמונת Second Impact — נפיחות מוחית קשה ומסכנת חיים','הסיכון הוא רק לפגיעה נוספת מכנית באותו אזור שנפגע','הוא עלול להרגיש כאב ראש מחמיר שיפגע בביצועים'],
+      correct:1, exp:'Second Impact Syndrome: מוח פגוע שמקבל מכה נוספת לפני ריפוי = נפיחות מוחית קשה. כשספק — בחוץ.' },
+    { q:'כיצד קסדה מפחיתה פגיעה מוחית מבחינה פיזיקלית?',
+      a:['היא מקשחת את הגולגולת ומונעת ממנה לנוע בזמן מכה','היא בולמת את האנרגיה ומאריכה את זמן הפגיעה — כוח = מסה / זמן, כך מקטינה כוח','היא מנתבת את כוח המכה לעצמות הלחיים הרחק מהמוח','היא מוסיפה מסה לראש ומגדילה אינרציה שמונעת תאוצה פתאומית'],
+      correct:1, exp:'כוח = שינוי תנע / זמן. קסדה מאריכה את זמן הבלימה → פחות כוח על המוח. לא מבטלת — מפחיתה.' }
+  ]},
+  { id:'climate', name:'שינוי אקלים וסביבה', unit:'יחידה 3.2', emoji:'🌍', questions:[
+    { q:'מה ההבדל בין טמפרטורה לעומס חום?',
+      a:['טמפרטורה נמדדת בצל; עומס חום נמדד בשמש ישירה','עומס חום מחשב גם לחות ורוח — מה שהגוף באמת חש, לא רק מה שהמדחום מראה','טמפרטורה מדדה את האוויר; עומס חום מדדה את חום קרקע המגרש','עומס חום רלוונטי רק בספורט בחוץ; טמפרטורה רלוונטית לספורט סגור'],
+      correct:1, exp:'בלחות גבוהה הזעה פחות יעילה — הגוף חש חם יותר ממה שהמדחום מציג. עומס חום = מדד מציאותי יותר.' },
+    { q:'כיצד PM2.5 פוגעים בספורטאי בזמן תחרות?',
+      a:['הם גורמים לגירוי בגרון שמפריע לנשימה תחרותית','הם חודרים לשקיות האוויר בריאה, עוברים לדם ומפחיתים העברת חמצן לשרירים','הם נדבקים לריריות הנשימה ומגדילים את ההתנגדות לזרימת אוויר','הם מגרים את מערכת החיסון שמנתבת אנרגיה מהשריר למאבק בחלקיקים'],
+      correct:1, exp:'PM2.5 קטנים מספיק לחצות מחסום ריאה-דם → נכנסים לזרם הדם → דלקת, פחות חמצן לשרירים.' },
+    { q:'מה הטביעת פחמן הגדולה ביותר של קבוצת ספורט ישראלית?',
+      a:['בגדי ספורט וציוד מיוחד שמיוצרים מחוץ לארץ','טיסות לתחרויות בינלאומיות — כל ספורטאי פולט מאות ק"ג CO2 בטיסה אחת','שימוש במתקנים ממוזגים ומוארים לאורך כל השנה','תזונת ספורטאים עתירת חלבון מן החי שמצריכה משאבים רבים'],
+      correct:1, exp:'טיסה בינלאומית = מאות ק"ג CO2 לאדם. יותר ממה שמכונית פולטת בחודשים. הסוגיה הכי גדולה בספורט ישגי.' },
+    { q:'מה ההבדל בין פתרון טכנולוגי לפתרון התנהגותי לאקלים?',
+      a:['טכנולוגי הוא יקר יותר; התנהגותי הוא זול אבל פחות יעיל','טכנולוגי = פיתוח כלים ומערכות חדשות; התנהגותי = שינוי הרגלי הצריכה והפעולה האנושית','טכנולוגי מתאים לתאגידים; התנהגותי מתאים לאנשים פרטיים בלבד','פתרונות טכנולוגיים תמיד יעילים יותר כי אינם תלויים בשיתוף פעולה אנושי'],
+      correct:1, exp:'שניהם נחוצים. רכב חשמלי (טכנולוגי) + תחבורה ציבורית (התנהגותי). טכנולוגיה לבד לא מספיקה.' },
+    { q:'מה פירוש אחריות ציבורית של ספורטאי כלפי אקלים?',
+      a:['לוותר על תחרויות בינלאומיות כדי להפחית טיסות','להשתמש בפלטפורמה הציבורית כדי להעלות מודעות ולהפחית השפעה כשניתן, מבלי לוותר על הקריירה','להשקיע כספים מהפרסים בפרויקטי אנרגיה ירוקה','לבחור רק בתחרויות מקומיות ולסרב להתמודד בתחרויות בינלאומיות'],
+      correct:1, exp:'ספורטאים הם מודלים לחיקוי. אחריות ציבורית = מודעות + פעולה אפשרית, לא ויתור על הקריירה.' }
+  ]},
+  { id:'critical', name:'חשיבה מדעית ביקורתית', unit:'יחידה 4.1-4.3', emoji:'🔍', questions:[
+    { q:'מה מבדיל שאלת חקר טובה משאלה רגילה?',
+      a:['שאלת חקר מנוסחת בשפה מדעית ומשתמשת במונחים מקצועיים','שאלת חקר ממוקדת, פתוחה, ניתנת לחקירה ורלוונטית — לא מסתפקת בתשובת כן/לא','שאלת חקר חייבת לכלול השערה מנומקת לפני איסוף הנתונים','שאלת חקר עוסקת רק בנושאים שלא נחקרו עדיין במדע'],
+      correct:1, exp:'שאלת חקר: ממוקדת (לא "האם ספורט טוב?"), פתוחה (לא כן/לא), ניתנת לחקירה (אפשר לאסוף נתונים).' },
+    { q:'ראית כותרת: "מחקר חדש: קפה גורם לסרטן!" מה הצעד הראשון?',
+      a:['לשתף מיד — אם זה במחקר כנראה שזה אמין','לברר: מי עשה המחקר, כמה אנשים נכללו, האם מדובר בקורלציה או סיבתיות, ואיפה פורסם','לחפש דעה שנייה ממומחה ולהחליט לפי הדעה הרוב','להתעלם — מחקרים על קפה נסתרים זה על ידי זה ואי אפשר לסמוך על אף אחד'],
+      correct:1, exp:'בדיקת מקורות: מי חקר? גודל מדגם? קורלציה אינה סיבתיות! פורסם בכתב עת מוכר? רוב הכותרות מוגזמות.' },
+    { q:'מה ההבדל בין עובדה, דעה ותובנה?',
+      a:['עובדה = ידוע; דעה = לא ידוע; תובנה = ממוצע ביניהם','עובדה = ניתנת לאימות; דעה = הערכה אישית; תובנה = מסקנה מנומקת המכירה במורכבות','עובדה = ממחקר; דעה = מרשתות חברתיות; תובנה = מניסיון אישי','עובדה = מדעית; דעה = פוליטית; תובנה = פילוסופית'],
+      correct:1, exp:'תובנה ≠ דעה. תובנה מבוססת על ראיות, מכירה בנקודות מבט שונות, ומסיקה מסקנה מנומקת.' },
+    { q:'מהו ההבדל בין קורלציה לסיבתיות? תן דוגמה:',
+      a:['אין הבדל מעשי — קורלציה חזקה מספיק מוכיחה סיבתיות','קורלציה = קשר בין שני משתנים; סיבתיות = אחד גורם לשני. למשל: מכירות גלידה וטביעות קשורות אך גלידה לא גורמת לטביעות','קורלציה = נמדדת בניסוי; סיבתיות = נמדדת בסקר','סיבתיות ניתנת להוכחה רק בביולוגיה; בשאר המדעים ניתן רק לדבר על קורלציה'],
+      correct:1, exp:'קורלציה ≠ סיבתיות. גלידה וטביעות קשורות (שניהן עולות בקיץ), אבל אחת לא גורמת לשנייה. גורם מבלבל!' },
+    { q:'כיצד מנסחים תובנה מנומקת לפי מה שלמדנו?',
+      a:['כותבים את הדעה האישית שלנו בצורה ברורה ומשכנעת','מציגים טענה שמכירה בסיבוך, מנמקים בראיות ומתייחסים לנקודת מבט נגדית','מגיעים לתשובה חד-משמעית שתומכת בעמדה אחת ומפריכה את האחרת','משלבים ציטוטים ממקורות מדעיים ומסיקים מסקנה שכולם יסכימו איתה'],
+      correct:1, exp:'מבנה תובנה: "למרות ש-X, חשוב לזכור ש-Y, ולכן ניתן להבין ש-Z — במיוחד כאשר..." מכיר במורכבות.' }
+  ]}
+];
+
+
+// ── KAHOOT SCORING ──────────────────────────────────────────────────────────
+const QUESTION_TIME = 20;
+const MAX_PTS = 1000;
+const MIN_PTS = 500;
+
+function calcPoints(secsLeft) {
+  if (secsLeft <= 0) return 0;
+  return Math.round(MIN_PTS + (MAX_PTS - MIN_PTS) * (secsLeft / QUESTION_TIME));
+}
+
+function seededShuffle(arr, seed) {
+  const a = [...arr]; let s = seed;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    const j = Math.abs(s) % (i + 1);
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getDailyQuestions() {
+  const seed = Math.floor(Date.now() / 86400000);
+  const all = TOPICS.flatMap(t => t.questions.map(q => ({ ...q, unit: t.unit })));
+  return seededShuffle(all, seed).slice(0, 5);
+}
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+let playerName = '';
+let currentQuestions = [], currentQ = 0, roundScore = 0;
+let perQuestionScores = [];
+let timerInterval = null, timeLeft = QUESTION_TIME, answered = false;
+
+const NAME_KEY = 'sciencePeak_name';
+const PTS_KEY  = 'sciencePeak_points';
+
+const getTotalPts = () => parseInt(localStorage.getItem(PTS_KEY) || '0');
+const addTotalPts = n  => localStorage.setItem(PTS_KEY, getTotalPts() + n);
+const getRawLB    = () => JSON.parse(localStorage.getItem('sciencePeak_lb') || '[]');
+const saveRawLB   = lb => localStorage.setItem('sciencePeak_lb', JSON.stringify(lb));
+
+function updateLB(name) {
+  const pts = getTotalPts();
+  let lb = getRawLB();
+  const idx = lb.findIndex(e => e.name === name);
+  if (idx === -1) lb.push({ name, pts, avatar: getAvatar(name), streak: 1 });
+  else { lb[idx].pts = Math.max(lb[idx].pts || 0, pts); lb[idx].streak = (lb[idx].streak||0)+1; }
+  lb.sort((a,b) => b.pts - a.pts);
+  saveRawLB(lb);
+}
+
+function getLB() {
+  return Promise.resolve(getRawLB());
+}
+
+function getAvatar(name) {
+  const list = ['🏊','🤸','⚔️','🎯','🏋️','🤼','🏇','🎽','🚴','🤺'];
+  let h = 0; for (const c of name) h += c.charCodeAt(0);
+  return list[h % list.length];
+}
+
+// ── SCREENS ─────────────────────────────────────────────────────────────────
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goHome() { clearTimer(); show('home'); updateHomeUI(); }
+
+function updateHomeUI() {
+  const n = playerName || localStorage.getItem(NAME_KEY) || '';
+  const pts = getTotalPts();
+  document.getElementById('home-greeting').textContent =
+    n ? `שלום ${n}! יש לך ${pts.toLocaleString()} נקודות` : 'מוכן/ה לאתגר?';
+  getLB().then(lb => {
+    const rank = lb.findIndex(e => e.name === n) + 1;
+    const badge = document.getElementById('home-rank-badge');
+    if (rank > 0) badge.textContent = `מקום #${rank}`;
+  });
+}
+
+// ── NAME ─────────────────────────────────────────────────────────────────────
+function saveName() {
+  const val = document.getElementById('player-name-input').value.trim();
+  if (!val) { showToast('הכנס/י שם כדי להמשיך'); return; }
+  playerName = val;
+  localStorage.setItem(NAME_KEY, val);
+  updateLB(val);
+  show('home');
+  updateHomeUI();
+}
+
+// ── QUIZ ENGINE ──────────────────────────────────────────────────────────────
+function startQuiz(questions, modeLabel) {
+  currentQuestions = questions;
+  currentQ = 0;
+  roundScore = 0;
+  perQuestionScores = [];
+  show('quiz');
+  document.getElementById('quiz-mode-label').textContent = modeLabel;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  clearTimer();
+  answered = false;
+  const q = currentQuestions[currentQ];
+  const total = currentQuestions.length;
+
+  document.getElementById('quiz-progress').textContent = `${currentQ + 1} / ${total}`;
+  document.getElementById('progress-bar').style.width = `${(currentQ / total) * 100}%`;
+  document.getElementById('q-unit').textContent = q.unit || '';
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('explanation-box').className = 'explanation-box';
+  document.getElementById('explanation-box').innerHTML = '';
+  document.getElementById('next-btn').className = 'next-btn';
+  document.getElementById('round-score-display').textContent = roundScore.toLocaleString();
+
+  const letters = ['א','ב','ג','ד'];
+  const list = document.getElementById('answers-list');
+  list.innerHTML = '';
+  q.a.forEach((ans, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.innerHTML = `<span class="answer-letter">${letters[i]}</span><span>${ans}</span>`;
+    btn.onclick = () => selectAnswer(i, q.correct, q.exp);
+    list.appendChild(btn);
+  });
+
+  // Timer
+  timeLeft = QUESTION_TIME;
+  setTimerDisplay();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    setTimerDisplay();
+    if (timeLeft <= 0) { clearTimer(); timeOut(q.exp, q.correct); }
+  }, 1000);
+}
+
+function setTimerDisplay() {
+  const el = document.getElementById('timer-display');
+  const pct = (timeLeft / QUESTION_TIME) * 100;
+  const color = timeLeft <= 5 ? 'var(--danger)' : timeLeft <= 10 ? 'var(--orange)' : 'var(--teal)';
+  el.style.background = `conic-gradient(${color} ${pct}%, var(--border) 0%)`;
+  el.setAttribute('data-t', timeLeft);
+  el.className = 'timer-circle' + (timeLeft <= 5 ? ' danger' : timeLeft <= 10 ? ' warn' : '');
+}
+
+function clearTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function timeOut(exp, correct) {
+  if (answered) return;
+  answered = true;
+  const btns = document.querySelectorAll('.answer-btn');
+  btns.forEach((b, i) => { b.disabled = true; if (i === correct) b.classList.add('correct'); });
+  perQuestionScores.push(0);
+  showExp(false, exp, 0, true);
+}
+
+function selectAnswer(idx, correct, exp) {
+  if (answered) return;
+  answered = true;
+  clearTimer();
+  const isOk = idx === correct;
+  const pts  = isOk ? calcPoints(timeLeft) : 0;
+
+  const btns = document.querySelectorAll('.answer-btn');
+  btns.forEach(b => b.disabled = true);
+  btns[idx].classList.add(isOk ? 'correct' : 'wrong');
+  if (!isOk) btns[correct].classList.add('correct');
+
+  if (isOk) {
+    roundScore += pts;
+    document.getElementById('round-score-display').textContent = roundScore.toLocaleString();
+  }
+  perQuestionScores.push(pts);
+  showExp(isOk, exp, pts, false);
+}
+
+function showExp(ok, exp, pts, timedOut) {
+  const box = document.getElementById('explanation-box');
+  let top = timedOut
+    ? '<div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--danger)">⏰ הזמן נגמר! +0 נקודות</div>'
+    : ok
+      ? `<div style="font-size:14px;font-weight:900;margin-bottom:6px;color:var(--gold)">⚡ +${pts.toLocaleString()} נקודות!</div>`
+      : '<div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--danger)">❌ +0 נקודות</div>';
+  box.innerHTML = top + (ok && !timedOut ? '✅ ' : '❌ ') + exp;
+  box.className = 'explanation-box show ' + ((ok && !timedOut) ? 'correct-exp' : 'wrong-exp');
+  const nb = document.getElementById('next-btn');
+  nb.textContent = currentQ + 1 < currentQuestions.length ? 'המשך ←' : 'ראה תוצאות';
+  nb.className = 'next-btn show';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= currentQuestions.length) showResults();
+  else renderQuestion();
+}
+
+function quitQuiz() { clearTimer(); goHome(); }
+
+// ── RESULTS ──────────────────────────────────────────────────────────────────
+function showResults() {
+  clearTimer();
+  const total = currentQuestions.length;
+  const nCorrect = perQuestionScores.filter(p => p > 0).length;
+  const pct = Math.round((nCorrect / total) * 100);
+
+  addTotalPts(roundScore);
+  updateLB(playerName || localStorage.getItem(NAME_KEY) || 'שחקן');
+
+  let icon = '😐', title = 'נסה שוב';
+  if (pct >= 60)   { icon = '🎯'; title = 'כל הכבוד!'; }
+  if (pct >= 80)   { icon = '🔥'; title = 'מצוין!'; }
+  if (pct === 100) { icon = '🏆'; title = 'מושלם! 💯'; }
+
+  document.getElementById('result-icon').textContent = icon;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-sub').textContent = `${nCorrect} נכון מתוך ${total} • ${pct}% דיוק`;
+  document.getElementById('score-fraction').textContent = roundScore.toLocaleString();
+  document.getElementById('score-ring').style.setProperty('--pct', `${pct}%`);
+  document.getElementById('points-earned').textContent = `+${roundScore.toLocaleString()} נקודות בסבב זה`;
+
+  // Fetch rank from Firebase asynchronously
+  const me = playerName || localStorage.getItem(NAME_KEY) || '';
+  getLB().then(lb => {
+    const rank = lb.findIndex(e => e.name === me) + 1;
+    document.getElementById('result-rank').textContent = rank > 0 ? `מקום #${rank} בלוח המובילים 🏅` : '';
+  });
+
+  // Submit duel score if in duel mode
+  submitDuelScore(roundScore);
+
+  document.getElementById('score-breakdown').innerHTML = perQuestionScores.map((p, i) =>
+    `<div style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:8px;margin-bottom:4px;
+      background:${p > 0 ? 'rgba(63,185,80,0.1)' : 'rgba(248,81,73,0.08)'};
+      border:1px solid ${p > 0 ? 'var(--success)' : 'var(--danger)'}">
+      <span style="font-size:13px;font-weight:600">שאלה ${i + 1}</span>
+      <span style="font-size:13px;font-weight:800;color:${p > 0 ? 'var(--success)' : 'var(--danger)'}">
+        ${p > 0 ? '+' + p.toLocaleString() : '✗'}
+      </span></div>`
+  ).join('');
+
+  show('results');
+}
+
+function shareResult() {
+  const n = playerName || localStorage.getItem(NAME_KEY) || '';
+  const txt = `🧪 פסגת המדעים – וינגייט
+${n} צבר ${roundScore.toLocaleString()} נקודות!
+בוא/י לשחק גם!`;
+  if (navigator.share) navigator.share({ text: txt });
+  else { navigator.clipboard?.writeText(txt); showToast('הועתק!'); }
+}
+
+// ── MODES ────────────────────────────────────────────────────────────────────
+function startDaily() { startQuiz(getDailyQuestions(), 'אתגר יומי ⚡'); }
+
+function showTopics() {
+  const list = document.getElementById('topics-list');
+  list.innerHTML = '';
+  TOPICS.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'topic-item';
+    el.innerHTML = `<div class="topic-emoji">${t.emoji}</div><div class="topic-info"><div class="topic-name">${t.name}</div><div class="topic-unit">${t.unit}</div></div><div class="topic-arrow">←</div>`;
+    el.onclick = () => startQuiz(t.questions.map(q => ({ ...q, unit: t.unit })), `תרגול: ${t.name}`);
+    list.appendChild(el);
+  });
+  show('topic-select');
+}
+
+async function showTournament() {
+  const lb = await getLB();
+  document.getElementById('t-participants').textContent = lb.length || '–';
+  document.getElementById('t-top-score').textContent = lb[0]?.pts?.toLocaleString() || '–';
+  const mini = document.getElementById('t-mini-lb');
+  mini.innerHTML = '';
+  const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+  lb.slice(0, 5).forEach((e, i) => {
+    const el = document.createElement('div');
+    el.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)';
+    el.innerHTML = `<span>${medals[i]}</span><span style="flex:1;font-weight:700;font-size:14px">${e.name}</span><span style="color:var(--teal);font-weight:800">${e.pts?.toLocaleString()}</span>`;
+    mini.appendChild(el);
+  });
+  if (!lb.length) mini.innerHTML = '<div style="text-align:center;color:var(--muted);padding:16px;font-size:13px">אף אחד עוד לא שיחק!</div>';
+  show('tournament');
+}
+
+function startTournament() {
+  const all = TOPICS.flatMap(t => t.questions.map(q => ({ ...q, unit: t.unit })));
+  startQuiz([...all].sort(() => Math.random() - 0.5).slice(0, 15), 'טורניר שבועי 🏆');
+}
+
+// ── DUEL SYSTEM ──────────────────────────────────────────────────────────────
+let duelCode = null;
+let duelRole = null; // 'host' or 'guest'
+let duelRef  = null;
+
+function showChallenge() {
+  const code = Math.random().toString(36).substr(2, 4).toUpperCase();
+  duelCode = code;
+  document.getElementById('duel-code').textContent = code;
+  document.getElementById('duel-create-tab').style.display = 'block';
+  document.getElementById('duel-waiting').style.display = 'none';
+  document.getElementById('duel-result-panel').style.display = 'none';
+  show('challenge');
+}
+
+function shareViaWhatsApp() {
+  const code = duelCode || document.getElementById('waiting-code').textContent;
+  const name = playerName || localStorage.getItem(NAME_KEY) || '';
+  const msg = `🧪 *פסגת המדעים – וינגייט*
+${name} מאתגר/ת אותך לדו-קרב!
+
+קוד האתגר: *${code}*
+
+כנס/י ל: https://science2-eta.vercel.app
+לחץ/י על "אתגר חבר" → הכנס/י את הקוד`;
+  const url = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank');
+}
+
+function startDuelAsHost() {
+  const name = playerName || localStorage.getItem(NAME_KEY) || 'שחקן';
+  duelRole = 'host';
+  duelRef  = db.ref('duels/' + duelCode);
+
+  // Write duel to Firebase
+  duelRef.set({
+    code: duelCode,
+    host: { name, score: null, done: false },
+    guest: null,
+    questions: getDailyQuestions().map(q => ({ q: q.q, correct: q.correct })),
+    createdAt: Date.now()
+  });
+
+  // Show waiting UI
+  document.getElementById('duel-create-tab').style.display = 'none';
+  document.getElementById('duel-waiting').style.display = 'block';
+  document.getElementById('waiting-code').textContent = duelCode;
+
+  // Watch for guest joining
+  duelRef.child('guest').on('value', snap => {
+    if (snap.val() && snap.val().name) {
+      document.getElementById('duel-status').textContent = snap.val().name + ' הצטרף/ה! מתחיל...';
+      setTimeout(() => {
+        duelRef.child('guest').off();
+        startQuiz(getDailyQuestions(), 'אתגר חבר ⚔️');
+        listenForDuelResult();
+      }, 1200);
+    }
+  });
+}
+
+function joinDuel() {
+  const code = document.getElementById('join-code-input').value.trim().toUpperCase();
+  if (!code || code.length < 4) { showToast('הכנס קוד בן 4 תווים'); return; }
+  const name = playerName || localStorage.getItem(NAME_KEY) || 'שחקן';
+  duelRole = 'guest';
+  duelCode = code;
+  duelRef  = db.ref('duels/' + code);
+
+  duelRef.once('value', snap => {
+    if (!snap.val()) { showToast('קוד לא נמצא — בדקי שוב'); return; }
+
+    // Join as guest
+    duelRef.child('guest').set({ name, score: null, done: false });
+    showToast('הצטרפת! מתחיל...');
+    setTimeout(() => {
+      startQuiz(getDailyQuestions(), 'אתגר חבר ⚔️');
+      listenForDuelResult();
+    }, 800);
+  });
+}
+
+function listenForDuelResult() {
+  if (!duelRef) return;
+  duelRef.on('value', snap => {
+    const d = snap.val();
+    if (!d) return;
+    const host  = d.host;
+    const guest = d.guest;
+    if (host?.done && guest?.done) {
+      duelRef.off();
+      showDuelResult(host, guest);
+    }
+  });
+}
+
+function submitDuelScore(score) {
+  if (!duelRef || !duelRole) return;
+  duelRef.child(duelRole).update({ score, done: true });
+}
+
+function showDuelResult(host, guest) {
+  const panel = document.getElementById('duel-result-panel');
+  const content = document.getElementById('duel-result-content');
+  const myName = playerName || localStorage.getItem(NAME_KEY) || '';
+
+  const winner = host.score > guest.score ? host : guest.score > host.score ? guest : null;
+  const iWon   = winner?.name === myName;
+  const isDraw = !winner;
+
+  const emoji = isDraw ? '🤝' : iWon ? '🏆' : '😤';
+  const msg   = isDraw ? 'תיקו!' : iWon ? 'ניצחת!' : 'הפסדת — נסה שוב!';
+
+  content.innerHTML = `
+    <div style="font-size:48px;text-align:center;margin-bottom:12px">${emoji}</div>
+    <div style="font-size:22px;font-weight:900;text-align:center;margin-bottom:16px;color:${iWon?'var(--teal)':isDraw?'var(--gold)':'var(--danger)'}">${msg}</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      ${[host, guest].map(p => `
+        <div style="display:flex;justify-content:space-between;padding:12px 14px;border-radius:12px;
+          background:${p.name===winner?.name?'var(--teal-dim)':'var(--card)'};
+          border:1px solid ${p.name===winner?.name?'var(--teal)':'var(--border)'}">
+          <span style="font-weight:700">${p.name} ${p.name===myName?'(אתה/את)':''}</span>
+          <span style="font-weight:900;color:var(--teal)">${(p.score||0).toLocaleString()}</span>
+        </div>`).join('')}
+    </div>`;
+
+  document.getElementById('duel-create-tab').style.display = 'none';
+  document.getElementById('duel-waiting').style.display = 'none';
+  panel.style.display = 'block';
+  show('challenge');
+}
+
+// ── LEADERBOARD ───────────────────────────────────────────────────────────────
+async function showLeaderboard() {
+  const lb = await getLB();
+  const me = playerName || localStorage.getItem(NAME_KEY) || '';
+  const top3 = lb.slice(0, 3);
+  const order = top3.length >= 2 ? [top3[1], top3[0], top3[2]].filter(Boolean) : top3;
+  const classes = top3.length >= 2 ? ['p2','p1','p3'] : ['p1','p2','p3'];
+  const ranks = { p1:'1', p2:'2', p3:'3' };
+
+  document.getElementById('podium-row').innerHTML = '';
+  order.forEach((e, i) => {
+    const cls = classes[i];
+    const d = document.createElement('div');
+    d.className = `podium-item ${cls}`;
+    d.innerHTML = `<div class="podium-avatar">${e.avatar||'👤'}</div><div class="podium-name">${e.name}</div><div class="podium-pts">${e.pts?.toLocaleString()} נק'</div><div class="podium-block">${ranks[cls]}</div>`;
+    document.getElementById('podium-row').appendChild(d);
+  });
+
+  const list = document.getElementById('lb-list');
+  list.innerHTML = '';
+  lb.forEach((e, i) => {
+    const isMe = e.name === me;
+    const d = document.createElement('div');
+    d.className = `lb-entry ${isMe ? 'me' : ''}`;
+    d.innerHTML = `<div class="lb-rank">${i+1}</div><div class="lb-avatar">${e.avatar||'👤'}</div><div class="lb-info"><div class="lb-name">${e.name}${isMe?' (אתה/את)':''}</div>${e.streak>1?`<div class="lb-streak">🔥 רצף ${e.streak}</div>`:''}</div><div class="lb-score">${e.pts?.toLocaleString()}</div>`;
+    list.appendChild(d);
+  });
+  if (!lb.length) list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:40px 16px">אף אחד עוד לא שיחק!</div>';
+  show('leaderboard');
+}
+
+async function showProfile() {
+  const n = playerName || localStorage.getItem(NAME_KEY) || 'שחקן';
+  const lb = await getLB();
+  const rank = lb.findIndex(e => e.name === n) + 1;
+  showToast(`${n} • ${getTotalPts().toLocaleString()} נקודות • מקום #${rank||'?'}`);
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function showToast(msg, dur = 2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+
+// ══════════════════════════════════════════════
+//  EXTRA GAME DATA
+// ══════════════════════════════════════════════
+const TF_STATEMENTS = [
+  { s:'הומאוסטזיס פירושו שמירה על איזון פנימי קבוע בגוף', correct:true, unit:'יחידה 1.1' },
+  { s:'ספורטאי שמתאמן כל יום ללא מנוחה בהכרח ישיג תוצאות טובות יותר', correct:false, unit:'יחידה 1.1' },
+  { s:'נגיפים יכולים להתרבות לבד ללא תא מאכסן', correct:false, unit:'יחידה 1.2' },
+  { s:'אנטיביוטיקה יעילה כנגד חיידקים אך לא כנגד נגיפים', correct:true, unit:'יחידה 1.2' },
+  { s:'קפאין מייצר אנרגיה חדשה בתאים', correct:false, unit:'יחידה 2.2' },
+  { s:'אדנוזין הוא המולקולה האחראית לתחושת עייפות במוח', correct:true, unit:'יחידה 2.2' },
+  { s:'חימום לפני אימון מגדיל את הסיכון לקרע שריר', correct:false, unit:'יחידה 2.3' },
+  { s:'זעזוע מוח יכול להתרחש גם בלי איבוד הכרה', correct:true, unit:'יחידה 2.3' },
+  { s:'לחץ תמיד פוגע בביצועים ספורטיביים', correct:false, unit:'יחידה 2.1' },
+  { s:'PM2.5 חודרים לדם דרך הריאות', correct:true, unit:'יחידה 3.1' },
+  { s:'ATP הוא הורמון שמופרש בזמן מאמץ גופני', correct:false, unit:'יחידה 2.2' },
+  { s:'מיטוכונדריה היא תחנת הכוח של התא', correct:true, unit:'יחידה 2.2' },
+  { s:'תובנה זהה לדעה אישית חזקה', correct:false, unit:'יחידה 4.3' },
+  { s:'שאלת חקר טובה חייבת להיות ניתנת לבדיקה ולחקירה', correct:true, unit:'יחידה 4.1' },
+  { s:'זמן תגובה מתחיל ברגע התגובה הגופנית', correct:false, unit:'יחידה 2.1' },
+];
+
+const FB_QUESTIONS = [
+  { sentence:'___ הוא תהליך שמטרתו לשמור על איזון פנימי בגוף בכל תנאי', answer:'הומאוסטזיס', options:['הומאוסטזיס','מטבוליזם','קטבוליזם','אנבוליזם'], unit:'יחידה 1.1' },
+  { sentence:'חיידקים מסוגלים להתרבות ___, בעוד נגיפים זקוקים לתא מאכסן', answer:'באופן עצמאי', options:['באופן עצמאי','בדם בלבד','בעזרת נוגדנים','רק בריאות'], unit:'יחידה 1.2' },
+  { sentence:'___ הוא מטבע האנרגיה של התא — ממנו השריר שואב כוח לכיווץ', answer:'ATP', options:['ATP','ADP','RNA','NAD'], unit:'יחידה 2.2' },
+  { sentence:'קפאין מעיר אותנו על ידי חסימת קולטני ___ במוח', answer:'אדנוזין', options:['אדנוזין','קורטיזול','דופמין','סרוטונין'], unit:'יחידה 2.2' },
+  { sentence:'בזעזוע מוח, ___ נמתחים ונפגעת התקשורת בין תאי עצב', answer:'אקסונים', options:['אקסונים','מיופיברילים','נוירוטרנסמיטורים','סינפסות'], unit:'יחידה 2.3' },
+  { sentence:'חלקיקי ___ זעירים כל כך שהם חודרים לשקיות האוויר בריאה ועוברים לדם', answer:'PM2.5', options:['PM2.5','CO2','אוזון','תחמוצות חנקן'], unit:'יחידה 3.1' },
+  { sentence:'שאלת חקר טובה חייבת להיות ___, פתוחה וניתנת לחקירה', answer:'מדויקת', options:['מדויקת','קצרה','שנויה במחלוקת','מבוססת השערה'], unit:'יחידה 4.1' },
+  { sentence:'___ הן תחנת הכוח של התא — ספורטאים מאומנים מייצרים יותר מהן', answer:'מיטוכונדריות', options:['מיטוכונדריות','ליזוזומים','פרוקסיזומים','גופיפי גולג׳י'], unit:'יחידה 2.2' },
+];
+
+const CONN_PUZZLES = [
+  {
+    title: 'חיבור מושגי מדע',
+    groups: [
+      { label:'תגובת הגוף לעומס', color:'#00c8a0', items:['קורטיזול','אדרנלין','קצב לב עולה','הזעה'] },
+      { label:'חלקי התא', color:'#f5c518', items:['מיטוכונדריה','גרעין','ריבוזום','ממברנה'] },
+      { label:'גורמי פציעה', color:'#ff6b35', items:['חוסר חימום','עייפות','עומס יתר','תנועה שגויה'] },
+      { label:'מנגנוני הגנה', color:'#a371f7', items:['נוגדנים','תאי T','חיסון','דלקת'] },
+    ]
+  },
+  {
+    title: 'עולם האנרגיה',
+    groups: [
+      { label:'מקורות אנרגיה לתא', color:'#00c8a0', items:['גלוקוז','שומן','חלבון','ATP'] },
+      { label:'גורמים לעייפות', color:'#f5c518', items:['חוסר שינה','נפילת סוכר','אדנוזין','דלדול גליקוגן'] },
+      { label:'שלבי זמן תגובה', color:'#ff6b35', items:['גירוי','קליטה','עיבוד','תגובה'] },
+      { label:'מזהמי אוויר', color:'#a371f7', items:['PM2.5','אוזון','NO2','פחמן חד-חמצני'] },
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════
+//  BLITZ MODE — 60 seconds, as many as possible
+// ══════════════════════════════════════════════
+let blitzTimer = null, blitzScore = 0, blitzErrors = 0, blitzPool = [], blitzIdx = 0;
+
+function startBlitz() {
+  const all = TOPICS.flatMap(t => t.questions.map(q => ({ ...q, unit: t.unit })));
+  blitzPool = [...all].sort(() => Math.random() - 0.5);
+  blitzScore = 0; blitzErrors = 0; blitzIdx = 0;
+  let secs = 60;
+  show('blitz');
+  document.getElementById('blitz-timer').textContent = secs;
+  document.getElementById('blitz-score').textContent = 0;
+  document.getElementById('blitz-errors').textContent = 0;
+  renderBlitzQ();
+  blitzTimer = setInterval(() => {
+    secs--;
+    const el = document.getElementById('blitz-timer');
+    el.textContent = secs;
+    el.style.color = secs <= 10 ? 'var(--danger)' : 'var(--orange)';
+    if (secs <= 0) endBlitz();
+  }, 1000);
+}
+
+function renderBlitzQ() {
+  if (blitzIdx >= blitzPool.length) blitzIdx = 0;
+  const q = blitzPool[blitzIdx];
+  document.getElementById('blitz-unit').textContent = q.unit || '';
+  document.getElementById('blitz-q').textContent = q.q;
+  const letters = ['א','ב','ג','ד'];
+  document.getElementById('blitz-answers').innerHTML = '';
+  q.a.forEach((ans, i) => {
+    const btn = document.createElement('button');
+    btn.style.cssText = 'background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;text-align:right;cursor:pointer;font-family:Heebo,sans-serif;font-size:14px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:10px;transition:all 0.15s;width:100%';
+    btn.innerHTML = `<span style="width:24px;height:24px;border-radius:6px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">${letters[i]}</span><span>${ans}</span>`;
+    btn.onclick = () => {
+      if (i === q.correct) {
+        blitzScore++;
+        document.getElementById('blitz-score').textContent = blitzScore;
+        btn.style.background = 'rgba(63,185,80,0.2)';
+        btn.style.borderColor = 'var(--success)';
+      } else {
+        blitzErrors++;
+        document.getElementById('blitz-errors').textContent = blitzErrors;
+        btn.style.background = 'rgba(248,81,73,0.15)';
+        btn.style.borderColor = 'var(--danger)';
+        document.querySelectorAll('#blitz-answers button')[q.correct].style.background = 'rgba(63,185,80,0.2)';
+      }
+      setTimeout(() => { blitzIdx++; renderBlitzQ(); }, 350);
+    };
+    document.getElementById('blitz-answers').appendChild(btn);
+  });
+}
+
+function endBlitz() {
+  clearInterval(blitzTimer); blitzTimer = null;
+  const pts = blitzScore * 150;
+  addTotalPts(pts);
+  updateLB(playerName || localStorage.getItem(NAME_KEY) || 'שחקן');
+  goHome();
+  showToast(`בליץ! ${blitzScore} נכון • +${pts.toLocaleString()} נקודות ⚡`);
+}
+
+// ══════════════════════════════════════════════
+//  TRUE / FALSE
+// ══════════════════════════════════════════════
+let tfList = [], tfIdx = 0, tfScore = 0, tfAnswered = false;
+
+function startTrueFalse() {
+  tfList = [...TF_STATEMENTS].sort(() => Math.random() - 0.5).slice(0, 10);
+  tfIdx = 0; tfScore = 0;
+  show('truefalse');
+  renderTF();
+}
+
+function renderTF() {
+  tfAnswered = false;
+  const item = tfList[tfIdx];
+  document.getElementById('tf-progress').textContent = `${tfIdx+1}/10`;
+  document.getElementById('tf-unit').textContent = item.unit;
+  document.getElementById('tf-statement').textContent = item.s;
+  document.getElementById('tf-feedback').textContent = '';
+  document.getElementById('tf-feedback').style.color = '';
+}
+
+function answerTF(userSays) {
+  if (tfAnswered) return;
+  tfAnswered = true;
+  const item = tfList[tfIdx];
+  const ok = userSays === item.correct;
+  const fb = document.getElementById('tf-feedback');
+  if (ok) { tfScore++; fb.textContent = '✅ נכון!'; fb.style.color = 'var(--success)'; }
+  else { fb.textContent = `❌ ${item.correct ? 'זה נכון' : 'זה לא נכון'}`; fb.style.color = 'var(--danger)'; }
+  setTimeout(() => {
+    tfIdx++;
+    if (tfIdx >= tfList.length) {
+      const pts = tfScore * 120;
+      addTotalPts(pts);
+      updateLB(playerName || localStorage.getItem(NAME_KEY) || 'שחקן');
+      goHome();
+      showToast(`נכון/לא נכון: ${tfScore}/10 • +${pts.toLocaleString()} נקודות 🎯`);
+    } else renderTF();
+  }, 700);
+}
+
+// ══════════════════════════════════════════════
+//  FILL IN THE BLANK
+// ══════════════════════════════════════════════
+let fbList = [], fbIdx = 0, fbScore = 0;
+
+function startFillBlank() {
+  fbList = [...FB_QUESTIONS].sort(() => Math.random() - 0.5);
+  fbIdx = 0; fbScore = 0;
+  show('fillblank');
+  renderFB();
+}
+
+function renderFB() {
+  const item = fbList[fbIdx];
+  document.getElementById('fb-progress').textContent = `${fbIdx+1}/${fbList.length}`;
+  document.getElementById('fb-unit').textContent = item.unit;
+  document.getElementById('fb-sentence').innerHTML = item.sentence.replace('___',
+    '<span style="display:inline-block;min-width:80px;border-bottom:3px solid var(--teal);margin:0 6px;color:transparent">___</span>');
+  document.getElementById('fb-feedback').innerHTML = '';
+  const opts = [...item.options].sort(() => Math.random() - 0.5);
+  document.getElementById('fb-options').innerHTML = '';
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.style.cssText = 'background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 10px;font-family:Heebo,sans-serif;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;transition:all 0.2s;text-align:center';
+    btn.onclick = () => selectFB(opt, item, btn);
+    document.getElementById('fb-options').appendChild(btn);
+  });
+}
+
+function selectFB(chosen, item, btn) {
+  document.querySelectorAll('#fb-options button').forEach(b => b.disabled = true);
+  const ok = chosen === item.answer;
+  btn.style.background = ok ? 'rgba(63,185,80,0.2)' : 'rgba(248,81,73,0.15)';
+  btn.style.borderColor = ok ? 'var(--success)' : 'var(--danger)';
+  if (ok) {
+    fbScore++;
+    document.getElementById('fb-sentence').innerHTML = item.sentence.replace('___',
+      `<span style="color:var(--teal);font-weight:900">${item.answer}</span>`);
+  } else {
+    document.getElementById('fb-sentence').innerHTML = item.sentence.replace('___',
+      `<span style="color:var(--danger);font-weight:900;text-decoration:line-through">${chosen}</span> <span style="color:var(--success);font-weight:900">${item.answer}</span>`);
+  }
+  setTimeout(() => {
+    fbIdx++;
+    if (fbIdx >= fbList.length) {
+      const pts = fbScore * 130;
+      addTotalPts(pts);
+      updateLB(playerName || localStorage.getItem(NAME_KEY) || 'שחקן');
+      goHome();
+      showToast(`השלם משפט: ${fbScore}/${fbList.length} • +${pts.toLocaleString()} נקודות 🧩`);
+    } else renderFB();
+  }, 900);
+}
+
+// ══════════════════════════════════════════════
+//  CONNECTIONS
+// ══════════════════════════════════════════════
+let connPuzzle = null, connSelected = [], connLives = 4, connFound = [];
+
+function startConnections() {
+  connPuzzle = CONN_PUZZLES[Math.floor(Math.random() * CONN_PUZZLES.length)];
+  connSelected = []; connLives = 4; connFound = [];
+  show('connections');
+  document.getElementById('conn-lives').textContent = '❤️'.repeat(4);
+  document.getElementById('conn-found').innerHTML = '';
+  document.getElementById('conn-feedback').textContent = '';
+  const allItems = connPuzzle.groups.flatMap(g => g.items).sort(() => Math.random() - 0.5);
+  const grid = document.getElementById('conn-grid');
+  grid.innerHTML = '';
+  allItems.forEach(item => {
+    const btn = document.createElement('button');
+    btn.textContent = item;
+    btn.dataset.item = item;
+    btn.style.cssText = 'background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 8px;font-family:Heebo,sans-serif;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;transition:all 0.2s;text-align:center';
+    btn.onclick = () => toggleConn(btn, item);
+    grid.appendChild(btn);
+  });
+}
+
+function toggleConn(btn, item) {
+  const isSelected = connSelected.includes(item);
+  if (isSelected) {
+    connSelected = connSelected.filter(i => i !== item);
+    btn.style.background = 'var(--card)'; btn.style.borderColor = 'var(--border)';
+  } else {
+    if (connSelected.length >= 4) { showToast('בחר רק 4 פריטים'); return; }
+    connSelected.push(item);
+    btn.style.background = 'var(--teal-dim)'; btn.style.borderColor = 'var(--teal)';
+  }
+  document.getElementById('conn-submit').style.display = connSelected.length === 4 ? 'block' : 'none';
+}
+
+function submitConnections() {
+  const group = connPuzzle.groups.find(g =>
+    connSelected.every(s => g.items.includes(s)) && g.items.every(i => connSelected.includes(i)));
+  const fb = document.getElementById('conn-feedback');
+  if (group) {
+    connFound.push(group);
+    fb.textContent = `✅ ${group.label}!`; fb.style.color = 'var(--success)';
+    const found = document.getElementById('conn-found');
+    const row = document.createElement('div');
+    row.style.cssText = `background:${group.color};border-radius:10px;padding:10px 14px;color:#000;font-weight:800;font-size:13px;text-align:center;margin-bottom:6px`;
+    row.textContent = `${group.label}: ${group.items.join(' • ')}`;
+    found.appendChild(row);
+    connSelected.forEach(item => {
+      document.querySelectorAll('#conn-grid button').forEach(b => { if (b.dataset.item === item) b.remove(); });
+    });
+    connSelected = [];
+    document.getElementById('conn-submit').style.display = 'none';
+    if (connFound.length === connPuzzle.groups.length) {
+      const pts = connLives * 250;
+      addTotalPts(pts);
+      updateLB(playerName || localStorage.getItem(NAME_KEY) || 'שחקן');
+      setTimeout(() => { goHome(); showToast(`Connections! פתרת הכל! +${pts.toLocaleString()} נקודות 🔗`); }, 600);
+    }
+  } else {
+    connLives--;
+    document.getElementById('conn-lives').textContent = '❤️'.repeat(Math.max(0,connLives)) + '🖤'.repeat(Math.max(0,4-connLives));
+    fb.textContent = connLives > 0 ? `❌ לא נכון (${connLives} נסיונות נותרו)` : '💀 אין יותר חיים!';
+    fb.style.color = 'var(--danger)';
+    connSelected.forEach(item => {
+      document.querySelectorAll('#conn-grid button').forEach(b => {
+        if (b.dataset.item === item) {
+          b.style.background = 'rgba(248,81,73,0.2)'; b.style.borderColor = 'var(--danger)';
+          setTimeout(() => { b.style.background = 'var(--card)'; b.style.borderColor = 'var(--border)'; }, 600);
+        }
+      });
+    });
+    connSelected = [];
+    document.getElementById('conn-submit').style.display = 'none';
+    if (connLives <= 0) setTimeout(() => goHome(), 1500);
+  }
+}
+
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem(NAME_KEY);
+  if (saved) { playerName = saved; show('home'); updateHomeUI(); }
+});
+document.getElementById('player-name-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') saveName();
+});
+</script>
+
+<!-- ════════════════ BLITZ ════════════════ -->
+<div id="blitz" class="screen">
+  <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between">
+    <button class="quiz-back" onclick="endBlitz()">←</button>
+    <span style="font-size:13px;font-weight:700;color:var(--orange)">⚡ מצב מהירות</span>
+    <div style="background:var(--orange-dim);border:1px solid var(--orange);border-radius:10px;padding:4px 12px;font-size:18px;font-weight:900;color:var(--orange)" id="blitz-timer">60</div>
+  </div>
+  <div style="flex:1;padding:20px;display:flex;flex-direction:column;max-width:600px;margin:0 auto;width:100%">
+    <div style="text-align:center;margin-bottom:16px">
+      <span style="font-size:13px;color:var(--muted)">נכון עד כה: </span>
+      <span style="font-size:22px;font-weight:900;color:var(--teal)" id="blitz-score">0</span>
+      <span style="font-size:13px;color:var(--muted)"> • שגיאות: </span>
+      <span style="font-size:18px;font-weight:700;color:var(--danger)" id="blitz-errors">0</span>
+    </div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:8px" id="blitz-unit"></div>
+    <div style="font-size:clamp(16px,4vw,20px);font-weight:700;line-height:1.5;margin-bottom:20px;flex:1" id="blitz-q"></div>
+    <div id="blitz-answers" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+</div>
+
+<!-- ════════════════ TRUE/FALSE ════════════════ -->
+<div id="truefalse" class="screen">
+  <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between">
+    <button class="quiz-back" onclick="goHome()">←</button>
+    <span style="font-size:13px;font-weight:700;color:var(--teal)">🎯 נכון / לא נכון</span>
+    <span style="font-size:13px;color:var(--muted)" id="tf-progress">1/10</span>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center">
+    <div style="font-size:11px;color:var(--teal);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px" id="tf-unit"></div>
+    <div style="font-size:clamp(18px,4vw,24px);font-weight:700;line-height:1.5;margin-bottom:32px;max-width:500px" id="tf-statement"></div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">החלק ימינה = נכון ✓ | שמאלה = לא נכון ✗</div>
+    <div style="display:flex;gap:16px;width:100%;max-width:400px">
+      <button onclick="answerTF(false)" style="flex:1;padding:20px;border-radius:16px;border:2px solid var(--danger);background:rgba(248,81,73,0.1);color:var(--danger);font-family:Heebo,sans-serif;font-size:28px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background='rgba(248,81,73,0.25)'" onmouseout="this.style.background='rgba(248,81,73,0.1)'">✗</button>
+      <button onclick="answerTF(true)"  style="flex:1;padding:20px;border-radius:16px;border:2px solid var(--success);background:rgba(63,185,80,0.1);color:var(--success);font-family:Heebo,sans-serif;font-size:28px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background='rgba(63,185,80,0.25)'" onmouseout="this.style.background='rgba(63,185,80,0.1)'">✓</button>
+    </div>
+    <div id="tf-feedback" style="margin-top:16px;font-size:15px;font-weight:700;min-height:24px"></div>
+  </div>
+</div>
+
+<!-- ════════════════ FILL BLANK ════════════════ -->
+<div id="fillblank" class="screen">
+  <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between">
+    <button class="quiz-back" onclick="goHome()">←</button>
+    <span style="font-size:13px;font-weight:700;color:var(--gold)">🧩 השלם את המשפט</span>
+    <span style="font-size:13px;color:var(--muted)" id="fb-progress">1/8</span>
+  </div>
+  <div style="flex:1;padding:20px;display:flex;flex-direction:column;max-width:600px;margin:0 auto;width:100%">
+    <div style="font-size:11px;color:var(--teal);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px" id="fb-unit"></div>
+    <div style="font-size:clamp(17px,4vw,21px);font-weight:600;line-height:1.7;margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px" id="fb-sentence"></div>
+    <div id="fb-options" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+    <div id="fb-feedback" style="margin-top:16px;min-height:48px"></div>
+  </div>
+</div>
+
+<!-- ════════════════ CONNECTIONS ════════════════ -->
+<div id="connections" class="screen">
+  <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between">
+    <button class="quiz-back" onclick="goHome()">←</button>
+    <span style="font-size:13px;font-weight:700;color:var(--teal)">🔗 חיבור מושגים</span>
+    <div id="conn-lives" style="font-size:18px">❤️❤️❤️❤️</div>
+  </div>
+  <div style="padding:12px 16px;text-align:center">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px">מצא 4 קבוצות של 4 מושגים קשורים</div>
+    <div id="conn-found" style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px"></div>
+    <div id="conn-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px"></div>
+    <button id="conn-submit" onclick="submitConnections()" style="width:100%;padding:14px;background:var(--teal);color:#000;border:none;border-radius:12px;font-family:Heebo,sans-serif;font-size:15px;font-weight:800;cursor:pointer;display:none">בדוק ←</button>
+    <div id="conn-feedback" style="margin-top:10px;font-size:14px;font-weight:700;min-height:20px"></div>
+  </div>
+</div>
+</body>
+</html>
